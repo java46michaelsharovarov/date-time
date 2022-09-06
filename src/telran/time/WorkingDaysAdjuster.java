@@ -16,7 +16,7 @@ public class WorkingDaysAdjuster implements TemporalAdjuster {
 		this.daysOff = daysOff;
 		this.nDays = nDays;
 	}
-	public WorkingDaysAdjuster() {	
+	public WorkingDaysAdjuster() {
 	}
 	
 	public int[] getDaysOff() {
