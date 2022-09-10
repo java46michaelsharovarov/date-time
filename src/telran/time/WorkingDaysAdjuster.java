@@ -43,9 +43,11 @@ public class WorkingDaysAdjuster implements TemporalAdjuster {
 	      for(Integer e : daysOff) {
 	    	  weekends.add(e);
 	      }
-		while(i < nDays) {
-		    i = weekends.contains(date.get(ChronoField.DAY_OF_WEEK)) ? i : ++i; 
-		    date = date.plus(1, ChronoUnit.DAYS);		    
+		if (daysOff.length < 7) {
+			while (i < nDays) {
+				i = weekends.contains(date.get(ChronoField.DAY_OF_WEEK)) ? i : ++i;
+				date = date.plus(1, ChronoUnit.DAYS);
+			} 
 		}
 		return date;
 	}
