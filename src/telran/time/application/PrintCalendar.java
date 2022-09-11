@@ -133,7 +133,7 @@ public class PrintCalendar {
 		if(startPrintPosition < 0) {
 			return VALUES_DAYS_OF_WEEK.length + startPrintPosition;
 		}
-		return startPrintPosition;
+		return startPrintPosition; 
 	}
 
 	private static void printOffset(int column) {
