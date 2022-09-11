@@ -137,7 +137,7 @@ public class PrintCalendar {
 	}
 
 	private static void printOffset(int column) {
-		System.out.printf("%s", " ".repeat(column * 4));
+		System.out.printf("%s", " ".repeat(column * 4)); 
 	}
 
 	private static int getNumberOfDaysInMonth(int month, int year) {
