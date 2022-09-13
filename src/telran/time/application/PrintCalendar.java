@@ -64,24 +64,12 @@ public class PrintCalendar {
 	}
 
 	private static int getGivenFirstDayOfWeekOrdinal(String givenFirstDayOfWeek) throws Exception {
-		String daysOfWeek = getStringOfDaysOfWeek();
 		try {
 			return DayOfWeek.valueOf(givenFirstDayOfWeek.toUpperCase()).ordinal();			
 		} catch (Exception e) {
-			throw new Exception(String.format("Day should be from the list [%s]", daysOfWeek));
+			throw new Exception("Wrong name of week day - " + givenFirstDayOfWeek);
 		}
-	}
-
-	private static String getStringOfDaysOfWeek() {
-		StringBuilder stringBuilder = new StringBuilder();
-		for(DayOfWeek day : VALUES_DAYS_OF_WEEK) {
-			stringBuilder.append(day.getDisplayName(TextStyle.FULL, Locale.getDefault())); 
-			if(day.getValue() != VALUES_DAYS_OF_WEEK.length) {
-				stringBuilder.append(", ");
-			}
-		}
-		return stringBuilder.toString();
-	}
+	}	
 
 	private static void printCalendar(int month, int year, int firstDayOfWeek) {
 		printMonthAndYear(month, year);
@@ -127,13 +115,12 @@ public class PrintCalendar {
 
 	private static int getStartPrintPosition(int month, int year, int firstDayOfWeek) {
 		LocalDate firstDayOfMonth = LocalDate.of(year, month, 1);
-		int valueDayOfWeekOfFirstDayOfMonth = firstDayOfMonth.getDayOfWeek().getValue();
+		int valueFirstDayOfMonthWOD = firstDayOfMonth.getDayOfWeek().getValue();
 		int valueFirstDayOfWeek = VALUES_DAYS_OF_WEEK[firstDayOfWeek].getValue();
-		int startPrintPosition = valueDayOfWeekOfFirstDayOfMonth - valueFirstDayOfWeek;
-		if(startPrintPosition < 0) {
-			return VALUES_DAYS_OF_WEEK.length + startPrintPosition;
-		}
-		return startPrintPosition; 
+		int startPrintPosition = valueFirstDayOfMonthWOD - valueFirstDayOfWeek;
+		return startPrintPosition >= 0 
+				? startPrintPosition
+				:VALUES_DAYS_OF_WEEK.length + startPrintPosition; 
 	}
 
 	private static void printOffset(int column) {
