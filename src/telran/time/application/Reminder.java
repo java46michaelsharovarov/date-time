@@ -18,7 +18,7 @@ public class Reminder {
 		}		
 	}
 
-	private static long[] getReminderArgs(String[] args) throws Exception {
+	private static long[] getReminderArgs(String[] args) throws Exception { 
 		long [] res = new long[2];
 		if(args.length > 1) {
 			unit = getUnit(args);
