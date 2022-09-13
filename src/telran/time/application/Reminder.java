@@ -40,7 +40,7 @@ public class Reminder {
 
 	private static long getInterval(String intervalStr) throws Exception {
 		try {
-			long interval = getValueInMilliseconds(Integer.parseInt(intervalStr));
+			long interval = getValueInMilliseconds(Integer.parseInt(intervalStr)); 
 			if(interval < 0) {
 				throw new Exception("negative interval");
 			}
