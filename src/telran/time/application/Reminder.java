@@ -2,6 +2,8 @@ package telran.time.application;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Reminder {
 	
@@ -12,13 +14,13 @@ public class Reminder {
 		long [] reminderArgs;
 		try {
 			reminderArgs = getReminderArgs(args);
-			new ReminderHandler(reminderArgs);
+			getReminder(reminderArgs[0], reminderArgs[1]);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}		
 	}
 
-	private static long[] getReminderArgs(String[] args) throws Exception { 
+	private static long[] getReminderArgs(String[] args) throws Exception {
 		long [] res = new long[2];
 		if(args.length > 1) {
 			unit = getUnit(args);
@@ -40,7 +42,7 @@ public class Reminder {
 
 	private static long getInterval(String intervalStr) throws Exception {
 		try {
-			long interval = getValueInMilliseconds(Integer.parseInt(intervalStr)); 
+			long interval = getValueInMilliseconds(Integer.parseInt(intervalStr));
 			if(interval < 0) {
 				throw new Exception("negative interval");
 			}
@@ -67,6 +69,23 @@ public class Reminder {
 	
 	private static long getValueInMilliseconds(long value) {
 		return ChronoUnit.MILLIS.equals(unit) ? value : Duration.of(value, unit).toMillis(); 
+	}
+
+	private static void getReminder(long interval, long amountOfTime) {
+		Timer timer = new Timer();
+		timer.schedule(
+				new TimerTask() {
+					long numberOfWholeTimes = amountOfTime / interval;
+					@Override
+			        public void run() {      
+			    		System.out.println("\007\007\007");
+			    		numberOfWholeTimes--;
+			    		if (numberOfWholeTimes <= 0) {
+			    			timer.cancel();
+			    		}
+			        }
+			    },
+				interval, interval);
 	}
 
 }
