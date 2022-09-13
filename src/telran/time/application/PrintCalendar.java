@@ -30,7 +30,7 @@ public class PrintCalendar {
 			if(args.length > 1) {
 				res[1] = getGivenYearValue(args[1]);
 				if(args.length > 2) {
-					res[2] = getGivenFirstDayOfWeekOrdinal(args[2]);
+					res[2] = getGivenFirstDayOfWeekOrdinal(args[2]); 
 				}
 			}
 		}
